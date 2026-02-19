@@ -1,5 +1,21 @@
+using Microsoft.Extensions.Options;
+using Project3Vitour.Services.CategoryServices;
+using Project3Vitour.Services.TourServices;
+using Project3Vitour.Settings;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ITourService, TourService>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettingsKey"));
+
+builder.Services.AddScoped<IDatabaseSettings>(sp =>
+{
+    return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
