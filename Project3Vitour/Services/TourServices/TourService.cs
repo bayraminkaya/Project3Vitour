@@ -16,7 +16,7 @@ namespace Project3Vitour.Services.TourServices
         {
             var client = new MongoClient(_databaseSettings.ConnectionString);
             var database = client.GetDatabase(_databaseSettings.DatabaseName);
-            _tourCollection = database.GetCollection<Tour>(_databaseSettings.CategoryCollectionName);
+            _tourCollection = database.GetCollection<Tour>(_databaseSettings.TourCollectionName);
             _mapper = mapper;
         }
 
